@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+struct node *prev;
+};
+struct node *head,*temp,*new,*last=NULL;
+struct node *getnode(int x)
+{
+struct node *temp=(struct node*)malloc(sizeof(struct node));
+temp->data=x;
+temp->next=NULL;
+temp->prev=NULL;
+}
+void delete_middle(int val)
+{
+if(head==NULL)
+{
+printf("list is empty");
+}
+else if(head->next==NULL)
+{
+temp=head;
+head=last=NULL;
+free(temp);
+}
+else
+{
+temp=head;
+while(temp!=NULL&&temp->data!=val)
+{
+temp=temp->next;
+}
+if(temp==NULL)
+{
+printf("node with value %d not found \n",val);
+}
+(temp->prev)->next=temp->next;
+(temp->next)->prev=temp->prev;
+free(temp);
+}
+}
+void display()
+{
+if(head==NULL)
+{
+printf("list empty\n");
+}
+else
+{
+temp=head;
+while(temp!=NULL)
+{
+printf("%d->",temp->data);
+temp=temp->next;
+}
+}
+printf("null\n");
+}
+int main()
+{
+int n,i,x,val;
+printf("enter the number of node:");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("enter the data in %d node:",i+1);
+scanf("%d",&x);
+new=getnode(x);
+if(head==NULL)
+{
+head=last=new;
+}
+else
+{
+temp=head;
+while(temp->next!=NULL)
+{
+temp=temp->next;
+}
+temp->next=new;
+new->prev=temp;
+last=new;
+last->next=NULL;
+}
+}
+printf("enter the value to delete at middle:\n");
+scanf("%d",&val);
+printf("the list after deleting at middle:\n");
+delete_middle(val);
+display();
+return 0;
+}
