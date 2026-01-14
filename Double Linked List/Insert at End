@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+struct node *prev;
+};
+struct node *head,*temp,*new,*last;
+struct node *getnode(int x)
+{
+struct node *temp=(struct node*)malloc(sizeof(struct node));
+temp->data=x;
+temp->next=NULL;
+temp->prev=NULL;
+return temp;
+}
+
+void insert_end(int x)
+{
+new=getnode(x);
+if(head==NULL)
+  head=last=new;
+else
+{
+temp=head;
+  while(temp->next!=NULL)
+  {
+  temp=temp->next;
+  }
+  last=temp;
+  last->next=new;
+  new->prev=last;
+  last=new;
+}
+}
+
+void display()
+{
+if(head==NULL)
+{
+printf("list empty\n");
+}
+else
+{
+temp=head;
+while(temp!=NULL)
+{
+printf("%d->",temp->data);
+temp=temp->next;
+}
+}
+printf("null\n");
+}
+int main()
+{
+int n,i,x;
+printf("enter the number of node:");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("enter the data in %d node:",i+1);
+scanf("%d",&x);
+new=getnode(x);
+if(head==NULL)
+{
+head=last=new;
+}
+else
+{
+temp=head;
+while(temp->next!=NULL)
+{
+temp=temp->next;
+}
+temp->next=new;
+new->prev=temp;
+last=new;
+last->next=NULL;
+}
+}
+printf("enter the data to insert at end:");
+scanf("%d",&x);
+printf("the list after inserting at end:\n");
+insert_end(x);
+display();
+return 0;
+}
