@@ -1,0 +1,95 @@
+Program: 
+#include<stdio.h> 
+#include<stdlib.h> 
+struct node 
+{ 
+    int data; 
+    struct node*next; 
+}; 
+struct node*new,*last=NULL,*head,*temp; 
+struct node*getnode(int x) 
+{ 
+    struct node*temp=(struct node*)malloc(sizeof(struct node)); 
+    temp->data=x; 
+    temp->next=NULL; 
+    return temp; 
+} 
+void delete_end() 
+{ 
+    if(head==NULL) 
+    { 
+        printf("deletion is not possible \n"); 
+    } 
+    else if(head->next==head) 
+    { 
+        temp=head; 
+        head=last=NULL;                                 
+        free(temp); 
+    } 
+    else 
+    { 
+      temp=head; 
+      struct node*temp2=NULL; 
+      while(temp->next!=head) 
+      { 
+          temp2=temp; 
+          temp=temp->next; 
+      } 
+      last=temp2; 
+      last->next=head; 
+      free(temp); 
+    } 
+} 
+void display() 
+{ 
+    if(head==NULL) 
+    { 
+        printf("list is empty\n"); 
+    } 
+    else 
+    { 
+        struct node*temp=head; 
+        do 
+        { 
+            printf("%d->",temp->data); 
+            temp=temp->next; 
+        } 
+        while(temp!=head); 
+        printf("head\n"); 
+    } 
+} 
+int main() 
+{ 
+    int n,x,i; 
+    printf("enter no.of nodes:"); 
+    scanf("%d",&n); 
+    for(i=0;i<n;i++) 
+    { 
+        printf("enter data value in %d node:",i+1); 
+        scanf("%d",&x); 
+        new=getnode(x); 
+        if(head==NULL) 
+        { 
+            head=new; 
+            last=new; 
+            last->next=head; 
+        } 
+        else 
+        { 
+           temp=head; 
+           while(temp->next!=head) 
+           { 
+               temp=temp->next; 
+           } 
+           temp->next=new; 
+           last=new; 
+           last->next=head; 
+        } 
+    } 
+    printf(" The list after creation:\n"); 
+    display(); 
+    delete_end(); 
+    printf(" The list after deletion at end:\n"); 
+    display(); 
+    return 0; 
+}
