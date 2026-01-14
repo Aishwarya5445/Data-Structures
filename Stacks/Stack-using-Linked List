@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+struct node *top=NULL;
+void push(int);
+void pop();
+void display();
+void main()
+{
+int ch,num;
+printf("\n:: Stack using Linked List ::\n");
+while(1)
+{
+printf(" \n1.PUSH\n2.POP\n3.DISPLAY\n4.EXIT\n\nEnter Your Choice:");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1: printf("\n\nENTER THE STACK ELEMENT : ");
+        scanf("%d",&num);
+        push(num);
+        break;
+case 2: pop();
+        break;
+case 3: display();
+        break;
+case 4: exit(0);
+        break;
+default: printf("Invalid Choice : ");
+}
+}
+}
+void display()
+{
+struct node *temp = top;
+if(temp==NULL)
+printf("\nSTACK IS EMPTY\n");
+else
+{
+while(temp!=NULL)
+{
+printf("%d-->",temp->data);
+temp=temp->next;
+}
+printf("NULL");
+}
+}
+void push(int num)
+{
+struct node *newNode = (struct node*)malloc(sizeof(struct node));
+newNode->data = num;
+newNode->next = NULL;
+if(top == NULL)
+top=newNode;
+else
+{
+newNode->next = top;
+top = newNode;
+}
+printf("\nELEMENT IS INSERTED\n");
+}
+void pop()
+{
+if(top == NULL)
+printf("\nSTACK IS EMPTY\n");
+else
+{
+temp = top;
+printf("\nDELETED ELEMENT IS %d\n",temp->data);
+top = temp->next;
+free(temp);
+}
+}
