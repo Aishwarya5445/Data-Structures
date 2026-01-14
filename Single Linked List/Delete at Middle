@@ -1,0 +1,87 @@
+  Program: 
+#include<stdio.h> 
+#include<stdlib.h> 
+struct node 
+{ 
+int data; 
+struct node *next; 
+}; 
+struct node *head=NULL,*temp,*new; 
+struct node *getnode(int x) 
+{ 
+struct node *temp=(struct node*)malloc(sizeof(struct node)); 
+temp->data=x; 
+temp->next=NULL; 
+return temp; 
+} 
+void delete_middle(int val) 
+{ 
+if(head==NULL) 
+{ 
+printf("deletion is not possible"); 
+} 
+else if(head->next==NULL) 
+{ 
+printf("deletion from middle is not possible"); 
+} 
+else 
+{ 
+struct node*temp1=NULL; 
+temp=head; 
+while(temp->data!=val) 
+{ 
+temp1=temp; 
+temp=temp->next; 
+} 
+temp1->next=temp->next; 
+free(temp); 
+} 
+} 
+void display() 
+{ 
+if(head==NULL) 
+{ 
+printf("list empty\n"); 
+} 
+else 
+{ 
+temp=head; 
+while(temp!=NULL) 
+{ 
+printf("%d->",temp->data); 
+temp=temp->next; 
+} 
+printf("null\n"); 
+} 
+} 
+int main() 
+{ 
+int n,i,x,val; 
+printf("enter the number of node:"); 
+scanf("%d",&n); 
+for(i=0;i<n;i++) 
+{ 
+printf("enter the data in %d node:",i+1); 
+scanf("%d",&x); 
+new=getnode(x); 
+if(head==NULL) 
+{ 
+head=new; 
+} 
+else 
+{ 
+temp=head; 
+while(temp->next!=NULL) 
+{ 
+temp=temp->next; 
+} 
+temp->next=new; 
+} 
+} 
+printf("enter the value that you want to delete:\n"); 
+scanf("%d",&val); 
+printf(" list after deleting middle node:\n"); 
+delete_middle(val); 
+display(); 
+return 0; 
+} 
